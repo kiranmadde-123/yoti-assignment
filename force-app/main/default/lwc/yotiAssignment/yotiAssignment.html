@@ -1,0 +1,84 @@
+<template>
+    <span class="slds-icon_container slds-icon-custom-custom5">
+
+        <img style="width: 150px;"
+            src="https://extentia91-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0152w000002MnLX&oid=00D2w00000QsRhJ&lastMod=1678294024000"></img>
+    </span>
+    <div class="slds-float_right slds-m-top_small slds-m-right_small" style="height:3rem">
+        <span class="slds-badge">{pageNumber}-{totalPages} of {totalPages}</span>
+        <lightning-button disabled={bDisableFirst} icon-name="utility:chevronleft"
+            onclick={previousPage}></lightning-button>
+        <lightning-button disabled={bDisableLast} icon-name="utility:chevronright" onclick={nextPage}
+            icon-position="right"></lightning-button>
+    </div>
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered ">
+        <thead>
+            <tr class="slds-line-height_reset">
+
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Envelope name">Envelope name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Sent to">Sent to</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Signing Status">Signing Status</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Sent on">Sent on</div>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={lstErequest} for:item="req">
+                <tr key={req.Id}>
+
+                    <th scope="col">
+                        <div>{req.Envelope_name__c}</div>
+                    </th>
+                    <th scope="col">
+                        <div>{req.Sent_to__c}</div>
+                    </th>
+                    <th scope="col">
+                        <template if:true={req.signStatus}>
+                            <span class="bgcolor1 slds-p-horizontal_large slds-p-vertical_xxx-small"
+                                style="background-color:rgba(114, 222, 114, 0.601) ">
+                                <lightning-icon icon-name="utility:success" alternative-text="Success!"
+                                    variant="success" title="success variant x-small" size="x-small"></lightning-icon>
+                                {req.Signing_Status__c}
+                            </span>
+                        </template>
+                        <template if:false={req.signStatus}>
+                            <span class="bgcolor2 slds-p-horizontal_large slds-p-vertical_xxx-small">
+                                <lightning-helptext content="You'll receive weekly updates"></lightning-helptext>
+
+                                {req.Signing_Status__c}
+                            </span>
+                        </template>
+
+                    </th>
+                    <th scope="col">
+                        <div>
+                            {req.Sent_on__c}
+                        </div>
+                    </th>
+                    <th scope="col">
+                        <div>
+                            <a href={req.View_Details__c} target="_blank">View Details</a>
+                        </div>
+                    </th>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+
+    <div class="slds-float_right slds-m-top_small slds-m-right_small" style="height:3rem">
+        <span class="slds-badge">{pageNumber}-{totalPages} of {totalPages}</span>
+        <lightning-button disabled={bDisableFirst} icon-name="utility:chevronleft"
+            onclick={previousPage}></lightning-button>
+        <lightning-button disabled={bDisableLast} icon-name="utility:chevronright" onclick={nextPage}
+            icon-position="right"></lightning-button>
+    </div>
+</template>
